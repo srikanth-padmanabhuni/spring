@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:c="http://www.springframework.org/schema/c" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    
+    <!-- Prpoerty Injection (using p-schema) -->
+   <bean 
+	   	name="address" 
+	   	class="com.presidio.spring.springadvanced.autowiring.Address"
+   		p:hno="141"
+   		p:street="Ramalayam Street" 
+   		p:city="Kanchadam"
+   	/>
+   	
+   	<bean 
+	   	name="addressBean" 
+	   	class="com.presidio.spring.springadvanced.autowiring.Address"
+   		p:hno="142"
+   		p:street="Hanuman Street" 
+   		p:city="Bodagunta"
+   	/>
+   	
+   	
+   	<!-- Auto wiring with bytype or byname uses setter injection -->
+   	
+   	<!-- Autowire helps in binding or instatiating the bean automatically for any refererred class object -->
+   	<!-- 
+   		Using byType so, spring check=s the employee class and finding is it having any depency on other class object, if it finds use autowire.
+   		In qutowire it is having byType so it searches for bean definition in xml for that particular class (Here Address). If it finds retuns that bean object
+   		to Emoployee class
+   	 -->
+   	 <!-- 
+   	 	if it doesnt find the bean for the given type then it returns the default values for that particualr bean
+   	 	i.e returns null for them 
+   	  -->
+   	  
+   	  <!-- 
+   	  	If we provide two bean defifnitions for same Class(Address) then it retuns an exception saying
+   	  	Two matching definions found expected one
+   	   -->
+   	<!-- 
+	 	<bean 
+	 		name="employeeBeanByTypeType" 
+	 		class="com.presidio.spring.springadvanced.autowiring.Employee"
+	 		p:id="101" 
+	 		p:name="Sriaknth Padmanabhuni"
+	 		autowire="byType"
+	 	/>
+   	 -->
+   		 
+   	<!-- 
+   		Autowire byName works only if beanname of that class should be same as the variable name of that class 
+   		inside the employee class
+   		(i.e address bean name should be same as the variable name of the Address class variable inside Employee class)
+   	 -->
+   	 
+   	 <!-- 
+   	 	Two beans with same name gives duplication error saying BeanDefinition with bean name already in use.
+   	  -->
+    
+    <!-- 
+    	If bean name with varible name is not available in config file then it returns class with the null or default
+    	values only 
+     -->
+    
+    <!-- 
+    	<bean 
+	 		name="employeeBeanByNameType" 
+	 		class="com.presidio.spring.springadvanced.autowiring.Employee"
+	 		p:id="101" 
+	 		p:name="Sriaknth Padmanabhuni"
+	 		autowire="byName"
+ 		/>
+      -->
+     
+     
+     <!--  Auto wiring by constructor uses constructor injection for setting reference of Address Class -->
+     <!--  For this we need to define a parameterised contructor in Employee class with Address as one of the param -->
+     <!-- This also uses bean name to inject inside constructor if e find two beans of same type -->
+     	<bean 
+	 		name="employeeBeanByConstructorType" 
+	 		class="com.presidio.spring.springadvanced.autowiring.Employee"
+	 		c:id="101" 
+	 		c:name="Sriaknth Padmanabhuni"
+	 		autowire="constructor"
+ 		/>
+      
+    
+</beans>

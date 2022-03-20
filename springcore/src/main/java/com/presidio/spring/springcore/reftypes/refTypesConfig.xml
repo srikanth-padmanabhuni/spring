@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    
+    <!--  Specify the bean for Scores class -->
+    <bean name="scoresBean" class="com.presidio.spring.springcore.reftypes.Scores">
+    	<property name="physics" value="97.25" />
+    	<property name="maths" value="100.00" />
+    	<property name="chemistry" value="98.5" />
+    </bean>
+    
+    <bean name="studentBean" class="com.presidio.spring.springcore.reftypes.Student">
+    	<property name="name" value="Srikanth Padmanabhuni" />
+    	
+    	<!--  Refer the already created bean for Scores here -->
+    	<!-- Ref as element -->
+    	<property name="scores">
+    		<ref bean="scoresBean" /> <!-- scoresBean is the name of bean for Score that got created -->
+    	</property>
+    	
+    	<!-- Ref as attribute -->
+    	<!--   
+    		<property name="scores" ref="scoresBean" />
+    	-->
+    	
+    </bean>
+    
+    <!--  Using p-schema method -->
+    <!-- 
+    	Syntax: 
+    		p:varibaleNameInClass-ref="Bean Name of class needs to refer"
+    	Explanation:
+    		'ref' helps in understanding that it is refereeing the other bean
+     -->
+   <!--  
+	   	<bean 
+	    	name="studentsBean" 
+	    	class="com.presidio.spring.springcore.reftypes.Student"
+	    	p:scores-ref="scoresBean"
+	    	p:name="Srikanth Padmanabhuni"
+	    />
+	-->
+	
+ 
+</beans>

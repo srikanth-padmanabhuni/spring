@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:c="http://www.springframework.org/schema/c" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    
+    <!-- If we dont use type attribute we get ambiquity problem -->
+    <!-- 
+    	Problem: 
+    	Initially sporing checks for constructor with string arguments if found invokes it for any type of data
+    	If not check for other types whose value can be casted to it and invokes it
+    	(For ex: i am passing int. if spring finds double constructor first then invokes since int can be converted 
+    	to douvble)
+    	
+    	So, we need to use type attribute to specify the type of the attribute so that 
+    	it invokes the correct constructor without any ambiquity
+     -->
+   	
+   	<bean 
+   		name="additionBeanInt" 
+   		class="com.presidio.spring.springcore.constructorInjection.ambiquity.Addition"
+   		c:a="10" 
+   		c:b="20"
+   	/>
+   	
+   	<!--  With type attribute -->
+   	<!-- index attribute helps in preserving the orrder of the attributes and it eradicate the order ambiquity -->
+   	<!-- index starts from 0 and goes upto arg-1 -->
+   	
+   	<!-- we can also use the name attribute to resolve the order ambiquity as well -->
+   	<bean 
+   		name="additionBeanDouble" 
+   		class="com.presidio.spring.springcore.constructorInjection.ambiquity.Addition">
+   		<constructor-arg value="10.5" type="Double" index="0"/> <!-- double and Double are different need to use same type as mentioned in actual constructor -->
+   		<constructor-arg value="20.5" type="Double" index="1"/>
+   	</bean>
+   	
+   	<bean 
+   		name="additionBeanString" 
+   		class="com.presidio.spring.springcore.constructorInjection.ambiquity.Addition"
+   		c:a="Srikanth" 
+   		c:b="Padmanabhuni"
+   	/>
+
+</beans>

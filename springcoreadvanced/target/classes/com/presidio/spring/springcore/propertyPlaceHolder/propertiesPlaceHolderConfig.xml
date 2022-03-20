@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:c="http://www.springframework.org/schema/c" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    
+    <!-- this tag is used to load the properties and add it to our classes -->
+    <!-- Since its a path of file we need to use '/' to locate it -->
+    <context:property-placeholder location="com/presidio/spring/springcore/propertyPlaceHolder/database.properties"/>
+    
+    <!--  Injecting loaded properties to our bean/class -->
+    <bean 
+    	class="com.presidio.spring.springcore.propertyPlaceHolder.PropertiesDAO"
+    	name="propertiesDAOBean">
+    	
+    	<!-- If correct value or variable name is not specified correctly then it throws BeanDefinitionStoreException -->
+    	<constructor-arg>
+    		<value>${dbServer}</value> <!-- dbServer is the varibale name inside the properties -->
+    	</constructor-arg>
+    	<constructor-arg>
+    		<value>${dbUser}</value> <!-- dbServer is the varibale name inside the properties -->
+    	</constructor-arg>
+    	<constructor-arg>
+    		<value>${dbPassword}</value> <!-- dbServer is the varibale name inside the properties -->
+    	</constructor-arg>
+    	<constructor-arg>
+    		<value>${dbPort}</value> <!-- dbServer is the varibale name inside the properties -->
+    	</constructor-arg>
+    </bean>
+    
+    
+</beans>

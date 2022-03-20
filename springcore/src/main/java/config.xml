@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    
+    <!-- Create a bean for the class we required -->
+    <!--  name (Here: employeeBean) is the name of the bean for class (Employee)
+     and this name helps us while creating beans in java class -->
+    <bean name="employeeBean" class="com.presidio.spring.springcore.Employee">
+    	<!-- Making dependency injection using setter type -->
+    	
+    	<!-- Providing value for property id of Employee Class -->
+    	<!--  This way of assigning value to id is called value as element -->
+    	<property name="id">
+    		<value>100</value> <!-- Value for property if of employee -->
+    	</property>
+    	
+    	<!-- <property name="id" value="100" /> --> <!--  Another way of assigning value to id. This method is called value as attribute -->
+    	
+    	<property name="name">
+    		<value>Srikanth Padmanabhuni</value>
+    	</property>
+    </bean>
+    
+    <!--  One more way of injecting/assiging values to beans is using p-schema or p-namespcae as follows -->
+    <!--  This way is more compact and convinient than others -->
+    <!-- p-Schema is used for propert injection -->
+   <!--  <bean name="employeeBean" class="com.presidio.spring.springcore.Employee" p:id="100" p:name="Srikanth" /> -->
+ 
+</beans>

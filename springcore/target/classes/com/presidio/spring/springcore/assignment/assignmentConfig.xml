@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    
+    <!-- Basics of spring core bean -->
+    <!-- Creating 3 items with different values in it -->
+    <bean 
+    	name="itemBean1" 
+    	class="com.presidio.spring.springcore.assignment.Items" 
+    	p:id="101"
+    	p:name="Rice"
+    	p:price="120.23"
+    	p:quantity="2"
+    />
+    <bean 
+    	name="itemBean2" 
+    	class="com.presidio.spring.springcore.assignment.Items" 
+    	p:id="102"
+    	p:name="Marie Gold Biscuits"
+    	p:price="50.00"
+    	p:quantity="5"
+    />
+    <bean 
+    	name="itemBean3" 
+    	class="com.presidio.spring.springcore.assignment.Items" 
+    	p:id="103"
+    	p:name="Maggie"
+    	p:price="20.00"
+    	p:quantity="1"
+    />
+    
+    <bean name="shoppingCartBean" class="com.presidio.spring.springcore.assignment.ShoppingCart">
+    	<property name="customerName" value="Srikanth Padmanabhuni" />
+    	<property name="items">
+    		<list>
+    			<!-- Adding each item into cart by referring item bean -->
+    			<ref bean="itemBean1"/> 
+    			<ref bean="itemBean2"/>
+    			<ref bean="itemBean3"/>  
+    		</list>
+    	</property>
+    </bean>
+ 
+ 	<!--  Lifecycle of Beans -->
+ 	<!--  Without creating bean life cycle methods whicha re annotated inside this class will not get invoked -->
+ 	<bean name="ticketReservationBean" class="com.presidio.spring.springcore.assignment.TicketReservation"/>
+ 
+ 	<context:annotation-config />
+ 	
+ 	
+ 	<!-- Dependency Check -->
+ 	<bean 
+ 		name="universityBean"
+ 		class="com.presidio.spring.springcore.assignment.University"
+ 		p:id="1005" 
+ 		p:name="JNTU-K"
+ 		p:location="Kakinada" 
+ 		scope="prototype"
+ 	/>
+ 	
+ 	<!-- Property Place Holder -->
+ 	<context:property-placeholder location="com/presidio/spring/springcore/assignment/client.properties"/>
+ 	
+ 	<bean name="clientPropertiesBean" class="com.presidio.spring.springcore.assignment.ClientProperties">
+ 		<constructor-arg>
+ 			<value>${url}</value>
+ 		</constructor-arg>
+ 		<constructor-arg>
+ 			<value>${userName}</value>
+ 		</constructor-arg>
+ 		<constructor-arg>
+ 			<value>${password}</value>
+ 		</constructor-arg>
+ 	</bean>
+ 	
+</beans>

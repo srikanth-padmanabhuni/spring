@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    
+ 	<bean name="hospitalBean" class="com.presidio.spring.springcore.list.Hospital">
+ 		<property name="name" value="Sunshine Multi Speciality Hospital"/>
+ 		<property name="departments">
+ 			<list> <!-- Since depearments is List we are defining the list tag -->
+ 				<value>Cardiology</value>
+ 				<value>ENT</value> <!--  Values inside the list -->
+ 				<value>Neurology</value>
+ 			</list>
+ 			
+ 			<!-- 
+ 				To configure the empty list we can just do <list></list> It creates an empty list
+ 			 -->
+ 			 
+ 			 <!--  
+ 			 	If we need only one element inside the then adding list tag is optional 
+ 			 	we can create and add value as follows 
+ 			 	<property name="departments" value="Cardiology" />
+ 			 	
+ 			 	Then java internally add this value inside a list as element
+ 			 -->
+ 			 
+ 			 <!-- To add null value to list we use <null/> tag -->
+ 			
+ 		</property>
+ 	</bean>
+</beans>
