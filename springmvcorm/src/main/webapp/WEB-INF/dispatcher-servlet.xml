@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+    ">
+    
+    <!--  Enable annotations -->
+    <context:component-scan base-package="com.presidio.spring.springmvcorm"></context:component-scan>
+    
+    <!-- It helps in telling spring that we use annotation way for transaction 
+		over methods -->
+	<tx:annotation-driven />
+	
+	<!-- Creating connection by providing all the details -->
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		name="dbConnectionBean" p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://localhost/learning" p:username="root"
+		p:password="Sri@5b0_143" />
+
+	<!-- Create the bean for LocalSessionFactoryBean which is the implementation 
+		of the Session Factory -->
+	<!-- LocalSessionFactoryBean needs three properties called Hibenrate Configurations(Key:Value) 
+		Pair, List of entities, Data Source(DB Details) -->
+	<bean
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+		name="sessionFactoryBean" p:dataSource-ref="dbConnectionBean">
+
+		<!-- Hibenrate Properties -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect"> org.hibernate.dialect.MySQLDialect </prop> <!-- It generates the SQL Queries -->
+				<prop key="hibernate.show_sql"> true </prop> <!-- Show the generated sql queries in console -->
+			</props>
+		</property>
+
+		<!-- List of entities (annotated classes) -->
+		<property name="annotatedClasses">
+			<list>
+				<value> com.presidio.spring.springmvcorm.entities.User </value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Hibernate transaction manager which depends upon a session factory -->
+	<bean
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+		name="transactionManager" p:sessionFactory-ref="sessionFactoryBean" />
+
+	<!-- Configuring hibernate template with the required dependency called session factory -->
+	<bean class="org.springframework.orm.hibernate5.HibernateTemplate"
+		name="hibernateTemplate" p:sessionFactory-ref="sessionFactoryBean" />
+		
+		
+	<!--  Bean for view resolver. This helps Spring mvc to search for view files and its extension -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		name="viewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/views/</value> <!-- Location of view files -->
+		</property>
+		<property name="suffix">
+			<value>.jsp</value> <!-- Extension of view files -->
+		</property>
+	</bean>
+    
+</beans>
